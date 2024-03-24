@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package avg;
+
+option java_package ="com.cristiancourse.proto.avg";
+option java_multiple_files = true;
+
+message AvgReq {
+  int32 num = 1;
+}
+
+message AvgRes {
+  double result = 1;
+}
+
+service AvgService {
+  rpc avg(stream AvgReq) returns (AvgRes);
+}

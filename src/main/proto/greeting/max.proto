@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package max;
+
+option java_package ="com.cristiancourse.proto.max";
+option java_multiple_files = true;
+
+message MaxReq {
+  int32 num = 1;
+}
+
+message MaxRes {
+  int32 max_number = 1;
+}
+
+service MaxService {
+  rpc max(stream MaxReq) returns (stream MaxRes);
+}
