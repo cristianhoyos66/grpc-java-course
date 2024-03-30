@@ -3,10 +3,18 @@ package com.cristiancourse.greeting.client;
 import com.cristiancourse.proto.avg.AvgReq;
 import com.cristiancourse.proto.avg.AvgRes;
 import com.cristiancourse.proto.avg.AvgServiceGrpc;
-import com.cristiancourse.proto.greeting.*;
+import com.cristiancourse.proto.greeting.GreetingRequest;
+import com.cristiancourse.proto.greeting.GreetingResponse;
+import com.cristiancourse.proto.greeting.GreetingServiceGrpc;
+import com.cristiancourse.proto.greeting.SumReq;
+import com.cristiancourse.proto.greeting.SumRes;
+import com.cristiancourse.proto.greeting.SumServiceGrpc;
 import com.cristiancourse.proto.max.MaxReq;
 import com.cristiancourse.proto.max.MaxRes;
 import com.cristiancourse.proto.max.MaxServiceGrpc;
+import com.cristiancourse.proto.sqrt.SqrtReq;
+import com.cristiancourse.proto.sqrt.SqrtRes;
+import com.cristiancourse.proto.sqrt.SqrtServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -163,6 +171,13 @@ public class GreetingClient {
         System.out.println("Summing: " + sumRes.getResult());
     }
 
+    private static void doSqrt(ManagedChannel channel) {
+        System.out.println("Enter doSqrt");
+        SqrtServiceGrpc.SqrtServiceBlockingStub stub = SqrtServiceGrpc.newBlockingStub(channel);
+        SqrtRes sqrtRes = stub.sqrt(SqrtReq.newBuilder().setNum(-5).build());
+        System.out.println("Result: " + sqrtRes.getResult());
+    }
+
     public static void main(String[] args) throws InterruptedException {
         if (args.length == 0) {
             System.out.println("Need one arg to work");
@@ -184,6 +199,7 @@ public class GreetingClient {
             case "avg" -> doAvg(channel);
             case "greet_everyone" -> doGreetEveryone(channel);
             case "max" -> doMax(channel);
+            case "sqrt" -> doSqrt(channel);
             default -> System.out.println("Keyword Invalid: " + args[0]);
         }
 

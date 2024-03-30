@@ -14,6 +14,7 @@ public class GreetingServer {
                 .addService(new SumService())
                 .addService(new AvgService())
                 .addService(new MaxService())
+                .addService(new SqrtService())
                 .build();
 
         server.start();
